@@ -1,0 +1,15 @@
+#!/bin/bash
+if [[ $EUID > 0 ]]; then
+    exec sudo "$0" "$@"
+fi
+
+if [[ -z $1 ]]; then
+    echo "Please specify a PID as the first argument to $0" >&2
+    exit 1
+else
+    PID=$1
+    echo "Inspecting $PID ..." >&2
+fi
+
+
+sudo gdb -q -p $PID -ex bt -ex quit </dev/null
