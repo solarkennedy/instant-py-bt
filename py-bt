@@ -18,7 +18,7 @@ if ! dpkg -l python${PY_VER}-dbg >/dev/null; then
     sudo apt-get -y install python${PY_VER}-dbg
 fi
 
-sudo gdb -q -p $PID -ex bt -ex 'printf "\n=============\n\n"' \
+sudo gdb -q /usr/bin/python${PY_VER} -p $PID -ex bt -ex 'printf "\n=============\n\n"' \
   -ex py-locals \
   -ex 'printf "\n=============\n\n"' \
   -ex py-list \
