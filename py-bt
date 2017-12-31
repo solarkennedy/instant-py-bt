@@ -13,6 +13,13 @@ if [[ -z $PY_VER ]]; then
     exit 1
 fi
 
+if ! which gdb >/dev/null; then
+    echo "Fetching gdb"
+    sudo apt-get -y install gdb
+fi
+GDB_VERSION="$(gdb --version | head -n1 | tr ' ' '\n' | tail -n 1)"
+echo "Looks like we are dealing with GDB $GDB_VERSION"
+
 if ! dpkg -l python${PY_VER}-dbg >/dev/null; then
     echo "Fetching debug packages..."
     sudo apt-get -y install python${PY_VER}-dbg
